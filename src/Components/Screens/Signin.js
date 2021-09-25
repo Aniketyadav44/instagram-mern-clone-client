@@ -1,8 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Signin.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Signin = () => {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const history = useHistory();
+
+  const signIn = (e) => {
+    e.preventDefault();
+    setError("");
+    fetch("/signin", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: login,
+        username: login,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.error) {
+          setError(result.error);
+          return;
+        }
+        localStorage.setItem("jwt", result.token);
+        localStorage.setItem("user", result.user);
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <div className={styles.signin}>
@@ -11,13 +45,28 @@ const Signin = () => {
           className={styles.input}
           type="text"
           placeholder="Username or email"
+          value={login}
+          onChange={(e) => {
+            setLogin(e.target.value);
+          }}
         />
         <input
           className={styles.input}
           type="password"
           placeholder="Password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
         />
-        <button className={styles.signinButton}>Log in</button>
+        <button onClick={signIn} className={styles.signinButton}>
+          Log in
+        </button>
+        {error && (
+          <p className={styles.error}>
+            {error}
+          </p>
+        )}
         <Link className={styles.forgotPassText} to="/">
           <p>Forgot password?</p>
         </Link>

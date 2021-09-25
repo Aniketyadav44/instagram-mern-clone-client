@@ -78,6 +78,18 @@
   background-color: white;
 }
 
+.error{
+  color: #ED4956;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 15px 40px 40px;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  background-color: white;
+}
+
 @media screen and (max-width: 400px) {
   .signup, .signinOuterBox, .signinInnerBox {
     width: 100%;
