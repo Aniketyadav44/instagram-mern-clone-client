@@ -1,0 +1,30 @@
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(206, 206, 206);
+    background-color: white;
+    padding: 10px;
+    align-items: center;
+}
+
+.linksDiv{
+    background-color: white;
+}
+
+.logo{
+    font-family: "Grand Hotel", "cursive";
+    letter-spacing: 1px;
+    font-size: 30px !important;
+}
+
+.link{
+    margin: 0px 10px;
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    background-color: white;
+}
+
+
+
