@@ -3,7 +3,7 @@
   justify-content: space-between;
   border-bottom: 1px solid rgb(206, 206, 206);
   background-color: white;
-  padding: 10px 20px;
+  padding: 5px 15%;
   align-items: center;
 }
 
@@ -30,14 +30,15 @@
   height: 22px;
   border: 1px solid rgb(206, 206, 206);
   border-radius: 100px;
+  margin-bottom: 2px;
 }
 
 .homeIcon {
   width: 28px;
   height: 28px;
-  margin-right: 10px;
   background-color: white;
   cursor: pointer;
+  margin-right:10px;
 }
 
 .profilePicSelect {
@@ -46,20 +47,21 @@
   height: 26px;
   border: 1px solid black;
   position: absolute;
-  top: 16px;
-  right: 18px;
+  top: 9px;
+  right: 14.85%;
   background-color: transparent;
 }
 
 .profileModal {
   position: absolute;
-  right: 0px;
+  right: 14%;
   top: 55px;
   width: 221px;
   background-color: white;
   box-shadow: 0 0 3px #ccc;
   border-radius: 10px;
   overflow: hidden;
+  z-index: 99 !important;
 }
 
 .modalItem {
@@ -80,8 +82,25 @@
   top: 47px;
   border: none;
   box-shadow: 0 0 3px #ccc;
-  right: 25px;
+  right: 15.3%;
   bottom: 0px;
   clip-path: inset(-5px 0px 0px -5px);
   mix-blend-mode: luminosity;
+  z-index: 100 !important;
+}
+
+@media screen and (max-width: 980px) {
+  .navbar {
+    padding: 5px 20px;
+  }
+
+  .profilePicSelect {
+    right: 18px;
+  }
+  .profileModal {
+    right: 0px;
+  }
+  .modalTriangle {
+    right: 25px;
+  }
 }

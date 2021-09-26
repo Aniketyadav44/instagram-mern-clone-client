@@ -3,12 +3,12 @@ import styles from "./Navbar.module.css";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../App";
 import homeIcon from "../Assets/insta_home.png";
+import instaAdd from "../Assets/insta_add.png";
 
 const Navbar = () => {
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
   const [profileModal, setProfileModal] = useState(false);
-  const [toggle, setToggle] = useState(false);
 
   const logOut = () => {
     localStorage.clear();
@@ -43,6 +43,14 @@ const Navbar = () => {
                   className={styles.homeIcon}
                   alt="home_icon"
                   src={homeIcon}
+                />
+              </Link>
+              <Link to={state ? "/create" : "/signin"}>
+                <img
+                  onClick={() => {}}
+                  className={styles.homeIcon}
+                  alt="home_icon"
+                  src={instaAdd}
                 />
               </Link>
               {profileModal && (

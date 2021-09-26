@@ -1,0 +1,112 @@
+.profilePic {
+  border-radius: 100px;
+  max-width: 165px;
+  max-height: 165px;
+  float: left;
+  margin-right: 80px;
+  border: 1px solid rgb(206, 206, 206);
+}
+
+.profileMain {
+  padding: 0px 16%;
+}
+
+.profile {
+  margin-top: 40px;
+}
+
+.profileDetails {
+  display: flex;
+  flex-direction: column;
+  float: left;
+}
+
+.hero {
+  max-width: 280px;
+  position: fixed;
+  z-index: 9;
+}
+
+.usernameStyle {
+  float: left;
+  font-size: 25px;
+  margin: 8px 8px 8px 0px;
+}
+
+.verifiedIcon {
+  width: 20px;
+  height: 20px;
+  margin-top: 10px;
+  float: left;
+}
+
+.button {
+  color: white;
+  background-color: #0095f6;
+  border-radius: 3px;
+  width: 100px;
+  height: 30px;
+  margin: 8px;
+  border: 1px solid transparent;
+  padding: 5px 0px 5px 0px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.bigScreenStats {
+  margin-top: 70px;
+  margin-right: 20px;
+  font-size: 15px;
+}
+
+.smallScreenStats {
+  display: none;
+}
+
+.name {
+  margin-top: 20px;
+}
+
+.bio {
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+@media screen and (max-width: 830px) {
+  .profilePic {
+    width: 72px;
+    height: 72px;
+    margin-top: 8px;
+    margin-right: 25px;
+  }
+  .profile {
+    margin-top: 20px;
+  }
+
+  .profileMain {
+    padding: 0px 20px;
+  }
+
+  .button {
+    width: 250px;
+  }
+
+  .bigScreenStats {
+    display: none;
+  }
+
+  .smallScreenStats {
+    display: contents;
+  }
+
+  .usernameStyle{
+    margin-left: 8px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .button {
+    width: 80%;
+  }
+}
