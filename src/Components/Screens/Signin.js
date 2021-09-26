@@ -33,7 +33,6 @@ const Signin = () => {
         localStorage.setItem("jwt", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
         dispatch({ type: "USER", payload: result.user });
-        console.log(result);
         history.push("/");
       })
       .catch((err) => {

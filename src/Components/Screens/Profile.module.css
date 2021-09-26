@@ -9,10 +9,14 @@
 
 .profileMain {
   padding: 0px 16%;
+  display: flex;
+  flex-direction: column;
 }
 
 .profile {
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 .profileDetails {
@@ -21,9 +25,13 @@
   float: left;
 }
 
+.nameAndBio {
+  display: flex;
+  flex-direction: column;
+}
+
 .hero {
   max-width: 280px;
-  position: fixed;
   z-index: 9;
 }
 
@@ -55,9 +63,22 @@
 }
 
 .bigScreenStats {
-  margin-top: 70px;
+  margin-top: 20px;
   margin-right: 20px;
   font-size: 15px;
+}
+
+.bigScreenGallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+}
+
+.smallScreenGallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  display: none;
 }
 
 .smallScreenStats {
@@ -73,7 +94,37 @@
   font-size: 15px;
 }
 
-@media screen and (max-width: 830px) {
+.profileDivider {
+  background-color: #dbdbdb;
+  border: 0.5px solid #dbdbdb;
+  margin-top: 50px;
+}
+
+.nameAndBio {
+  display: none;
+}
+
+.bigScreenGallery img {
+  width: 95.25%;
+  height: 95.25%;
+  padding: 3%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.smallScreenGallery img {
+  width: 32.3%;
+  height: 32.3%;
+  padding: 0.5%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+@media screen and (max-width: 850px) {
   .profilePic {
     width: 72px;
     height: 72px;
@@ -96,12 +147,58 @@
     display: none;
   }
 
+  .bigScreenGallery {
+    display: none;
+  }
+
   .smallScreenStats {
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    justify-content: space-around;
+    padding: 20px 0px;
+  }
+
+  .smallScreenGallery {
     display: contents;
   }
 
-  .usernameStyle{
+  .spanText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .spanText p {
+    color: grey;
+    font-size: 15px;
+  }
+  .usernameStyle {
     margin-left: 8px;
+  }
+
+  .profileDivider {
+    display: none;
+  }
+
+  .name {
+    font-size: 15px;
+  }
+
+  .bio {
+    font-size: 14px;
+  }
+
+  .nameAndBio {
+    display: contents;
+    left: 0px;
+    position: fixed;
+  }
+
+  .imageGallery {
+    max-width: 100%;
   }
 }
 

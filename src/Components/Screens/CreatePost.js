@@ -7,7 +7,6 @@ const CreatePost = () => {
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
   const token = localStorage.getItem("jwt");
-  console.log(state);
   if (!token) {
     history.push("/signin");
   }
