@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./Signin.module.css";
 import { Link, useHistory } from "react-router-dom";
+import { UserContext } from "../../App";
 
 const Signin = () => {
+  const { state, dispatch } = useContext(UserContext);
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -29,7 +31,9 @@ const Signin = () => {
           return;
         }
         localStorage.setItem("jwt", result.token);
-        localStorage.setItem("user", result.user);
+        localStorage.setItem("user", JSON.stringify(result.user));
+        dispatch({ type: "USER", payload: result.user });
+        console.log({ state: state });
         history.push("/");
       })
       .catch((err) => {
@@ -62,11 +66,7 @@ const Signin = () => {
         <button onClick={signIn} className={styles.signinButton}>
           Log in
         </button>
-        {error && (
-          <p className={styles.error}>
-            {error}
-          </p>
-        )}
+        {error && <p className={styles.error}>{error}</p>}
         <Link className={styles.forgotPassText} to="/">
           <p>Forgot password?</p>
         </Link>

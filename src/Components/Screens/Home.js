@@ -1,12 +1,17 @@
-import React from 'react'
-import styles from './Home.module.css'
+import React, { useContext } from "react";
+import { UserContext } from "../../App";
+import styles from "./Home.module.css";
+import { useHistory } from "react-router-dom";
 
 const Home = () => {
-    return (
-        <div>
-            Home
-        </div>
-    )
-}
+  const { state, dispatch } = useContext(UserContext);
+  const history = useHistory();
+  const token = localStorage.getItem("jwt");
+  console.log(state);
+  if (!token) {
+    history.push("/signin");
+  }
+  return <div>Home</div>;
+};
 
-export default Home
+export default Home;
