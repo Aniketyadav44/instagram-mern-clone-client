@@ -33,11 +33,11 @@
   margin-bottom: 2px;
 }
 
-.homeIcon {
+.navIcon {
   width: 28px;
   height: 28px;
   background-color: white;
-  cursor: pointer;
+  color: black;
   margin-right:10px;
 }
 
@@ -71,6 +71,8 @@
   cursor: pointer;
   background-color: white;
   color: black;
+  display: flex;
+  align-items: center;
 }
 
 .modalTriangle {

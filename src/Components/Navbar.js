@@ -1,13 +1,19 @@
 import React, { useContext, useState, useEffect } from "react";
 import styles from "./Navbar.module.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "../App";
-import homeIcon from "../Assets/insta_home.png";
-import instaAdd from "../Assets/insta_add.png";
+
+import HomeIcon from "@mui/icons-material/Home";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const Navbar = () => {
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
+  const location = useLocation();
   const [profileModal, setProfileModal] = useState(false);
 
   const logOut = () => {
@@ -39,19 +45,18 @@ const Navbar = () => {
                 to={state ? "/" : "/signin"}
                 style={{ textDecoration: "none" }}
               >
-                <img
-                  className={styles.homeIcon}
-                  alt="home_icon"
-                  src={homeIcon}
-                />
+                {location.pathname === "/" ? (
+                  <HomeIcon className={styles.navIcon} />
+                ) : (
+                  <HomeOutlinedIcon className={styles.navIcon} />
+                )}
               </Link>
               <Link to={state ? "/create" : "/signin"}>
-                <img
-                  onClick={() => {}}
-                  className={styles.homeIcon}
-                  alt="home_icon"
-                  src={instaAdd}
-                />
+                {location.pathname === "/create" ? (
+                  <AddBoxIcon className={styles.navIcon} />
+                ) : (
+                  <AddBoxOutlinedIcon className={styles.navIcon} />
+                )}
               </Link>
               {profileModal && (
                 <div
@@ -83,11 +88,17 @@ const Navbar = () => {
                 style={{ textDecoration: "none" }}
                 to={state ? "/profile" : "/signin"}
               >
-                <p className={styles.modalItem}>Profile</p>
+                <div className={styles.modalItem}>
+                  <AccountCircleOutlinedIcon />
+                  <p style={{marginLeft:"5px"}}>Profile</p>
+                </div>
               </Link>
             </div>
             <div>
-              <p className={styles.modalItem}>Settings</p>
+              <div className={styles.modalItem}>
+                <SettingsIcon />
+                <p style={{marginLeft:"5px"}}>Settings</p>
+              </div>
             </div>
             <div style={{ borderTop: "2px solid #ccc" }} onClick={logOut}>
               <p className={styles.modalItem}>Log Out</p>

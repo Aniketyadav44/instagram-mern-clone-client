@@ -1,0 +1,141 @@
+.mainBody {
+  padding: 0px 16%;
+}
+
+.mainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  background-color: white;
+  border: 1px solid grey;
+  margin: 10px auto;
+  padding: 20px 100px;
+}
+
+.preview {
+  max-width: 300px;
+  margin: 10px auto;
+  border-radius: 10px;
+  overflow: hidden;
+  object-fit: contain;
+  border: 1px solid rgb(168, 168, 168);
+}
+
+.croppingPreview {
+  margin-top: 10px;
+  margin: 0px auto;
+}
+
+.cropDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cropDiv button {
+  width: 100px;
+  margin: 10px;
+}
+
+.captionDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.selectFileButton {
+  width: 80px;
+  margin: 10px auto;
+  align-self: center;
+  cursor: pointer;
+  color: white;
+  background-color: #0095f6;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.border {
+  background: linear-gradient(90deg, #0095f6 50%, transparent 50%),
+    linear-gradient(90deg, #0095f6 50%, transparent 50%),
+    linear-gradient(0deg, #0095f6 50%, transparent 50%),
+    linear-gradient(0deg, #0095f6 50%, transparent 50%);
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 16px 4px, 16px 4px, 4px 16px, 4px 16px;
+  background-position: 0% 0%, 100% 100%, 0% 100%, 100% 0px;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 50px;
+  animation: dash 5s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    background-position: 100% 0%, 0% 100%, 0% 0%, 100% 100%;
+  }
+}
+
+.selectFile p {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 15px;
+}
+
+.cropPageArroDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.error {
+  color: #ed4956;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+  margin-top: 15px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.arrow {
+  margin: 10px !important;
+  font-size: 30px !important;
+  cursor: pointer;
+}
+
+.caption{
+	padding: 5px;
+    margin: 10px 0px;
+    border: 1px solid rgb(206,206,206);
+}
+
+.caption:focus{
+    outline: 1px solid rgb(168, 168, 168);
+}
+
+.locationTextDiv{
+  color:black;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 700px) {
+  .mainBody {
+    padding: 0px 20px;
+  }
+
+  .mainDiv {
+    width: 80%;
+    border: none;
+    padding: 20px;
+    margin: 0px auto;
+    background-color: #fafafa;
+  }
+
+  .preview {
+    max-width: 80%;
+  }
+}
