@@ -120,6 +120,13 @@
   cursor: pointer;
 }
 
+.editPostBtn{
+  color: black;
+  text-decoration: none;
+  right: 0px;
+  align-self: center;
+}
+
 @media screen and (max-width: 950px) {
   .mainDiv {
     flex-direction: column;

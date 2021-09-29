@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./PostComponent.module.css";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -6,6 +7,7 @@ import verifiedIcon from "../Assets/verified.png";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import EditIcon from '@mui/icons-material/Edit';
 
 const PostComponent = (props) => {
   const [post, setPost] = useState(props.data);
@@ -204,6 +206,11 @@ const PostComponent = (props) => {
                 <strong>Follow</strong>
               </p>
             ))}
+          {post.owner._id === localUser._id && (
+            <Link className={styles.editPostBtn} to={`/edit/${post._id}`}>
+              <EditIcon style={{fontSize:"18px"}}/>
+            </Link>
+          )}
         </div>
       </div>
     );

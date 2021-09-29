@@ -19,6 +19,7 @@
   flex-direction: column;
   margin: 100px!important;
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .modalContainer2 {
