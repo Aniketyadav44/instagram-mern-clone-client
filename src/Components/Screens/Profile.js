@@ -65,13 +65,6 @@ const Profile = () => {
             followers: [...prevState.followers, results._id],
           };
         });
-        // setOpenListModalData((prevState) => {
-        //   return {
-        //     ...prevState,
-        //     followers: [...prevState.followers,results._id],
-        //   };
-        // });
-        // console.log("openuser", openListModalData);
       })
       .catch((err) => console.log(err));
   };
@@ -98,22 +91,11 @@ const Profile = () => {
             followers: newFollowersArray,
           };
         });
-        // setOpenListModalData((prevState) => {
-        //   const newFollowersArray = prevState.followers.filter(
-        //     (item) => item !== results._id
-        //   );
-        //   return {
-        //     ...prevState,
-        //     followers: newFollowersArray,
-        //   };
-        // });
-        // console.log("openuser", openListModalData);
       })
       .catch((err) => console.log(err));
   };
 
   const getList = (list) => {
-    console.log("called")
     const bodyParam = list.toString();
     fetch(`/userlist/${bodyParam}`, {
       method: "get",
@@ -152,23 +134,6 @@ const Profile = () => {
 
           <p style={{ color: "rgba(var(--f52,142,142,142),1)" }}>{item.name}</p>
         </div>
-        {/* {item._id === localUser._id ? (
-          <button
-            style={{
-              backgroundColor: "white",
-              color: "black",
-              border: "1px solid #ccc",
-            }}
-            onClick={unfollow}
-            className={styles.button}
-          >
-            Following
-          </button>
-        ) : (
-          <button onClick={follow} className={styles.button}>
-            Follow
-          </button>
-        )} */}
       </div>
     );
   };

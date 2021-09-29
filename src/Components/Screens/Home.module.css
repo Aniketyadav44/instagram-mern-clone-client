@@ -100,6 +100,50 @@ body {
   font-size: 14px;
 }
 
+.showLikesDiv {
+  display: flex;
+  flex-direction: column;
+  width: 225px;
+  overflow-y: auto;
+  overflow-x:hidden ;
+  height: 400px;
+}
+
+.followListItem {
+  display: flex;
+  border: none;
+  padding: 0px 20px;
+  align-items: center;
+}
+
+.followListItem img {
+  border-radius: 100px;
+  max-width: 31px;
+  max-height: 31px;
+  float: left;
+  margin: 20px 16px;
+  border: 1px solid rgb(206, 206, 206);
+}
+
+.followListItem p {
+  width: 200px;
+  font-size: 14px;
+}
+
+.followListHeading {
+  border-bottom: 1px solid rgb(206, 206, 206);
+}
+
+.followListHeading p {
+  text-align: center;
+  margin: 15px auto 10px auto;
+  font-weight: bold;
+}
+
+.folllowListDiv{
+  margin:"20px !important";
+}
+
 @media screen and (max-width: 650px) {
   .mainPostDiv {
     margin: 25px 10px 0px 10px;

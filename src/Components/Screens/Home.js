@@ -20,6 +20,8 @@ const Home = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openMoreModal, setOpenMoreModal] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [openLikesModal, setOpenLikesModal] = useState(false);
+  const [modalList, setModalList] = useState([]);
   const history = useHistory();
   const token = localStorage.getItem("jwt");
   const localUser = JSON.parse(localStorage.getItem("user"));
@@ -221,6 +223,45 @@ const Home = () => {
   const editPost = (id) => {
     setOpenMoreModal(false);
   };
+
+  const getList = (list) => {
+    const bodyParam = list.toString();
+    fetch(`/userlist/${bodyParam}`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((results) => {
+        setModalList(results);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const FollowListItem = (props) => {
+    const item = props.data;
+    return (
+      <div className={styles.followListItem}>
+        <a href={`/profile/${item._id}`}>
+          <img alt="profile_img" src={item.photoUrl} />
+        </a>
+
+        <div>
+          <a
+            href={`/profile/${item._id}`}
+            style={{ color: "black", textDecoration: "none" }}
+          >
+            <p style={{ fontWeight: "bold" }}>{item.username}</p>
+          </a>
+
+          <p style={{ color: "rgba(var(--f52,142,142,142),1)" }}>{item.name}</p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       {openMoreModal && (
@@ -269,6 +310,22 @@ const Home = () => {
             >
               Cancel
             </p>
+          </div>
+        </Modal>
+      )}
+      {openLikesModal && (
+        <Modal type="popup" closeModal={setOpenLikesModal}>
+          <div style={{ overflow: "hidden" }}>
+            <div className={styles.followListHeading}>
+              <p>Likes</p>
+            </div>
+            <div className={styles.showLikesDiv}>
+              <>
+                {modalList.map((item) => {
+                  return <FollowListItem key={item._id} data={item} />;
+                })}
+              </>
+            </div>
           </div>
         </Modal>
       )}
@@ -326,7 +383,13 @@ const Home = () => {
                 )}
               </div>
               <p style={{ marginBottom: "10px" }}>
-                <strong>
+                <strong
+                  onClick={() => {
+                    getList(item.likes);
+                    setOpenLikesModal(true);
+                  }}
+                  style={{cursor:"pointer"}}
+                >
                   {item.likes.length > 0 && item.likes.length}{" "}
                   {item.likes.length === 0
                     ? "Be the first one to like"
