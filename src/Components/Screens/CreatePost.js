@@ -134,7 +134,6 @@ const CreatePost = () => {
       .then((res) => res.json())
       .then((responseData) => {
         setUrl(responseData.url);
-        console.log(url);
       })
       .catch((err) => {
         console.log(err);

@@ -216,7 +216,42 @@ const Home = () => {
     setOpenMoreModal(false);
   };
 
-  const deletePost = (id) => {
+  const deletePost = () => {
+    const imageId = data[currentIndex].photoUrl.split("/");
+    const imgPublicId = (
+      imageId[imageId.length - 2] +
+      "/" +
+      imageId[imageId.length - 1]
+    ).replace(".jpg", "");
+    console.log(imgPublicId);
+    fetch("/delete", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        publicId: imgPublicId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        fetch(`/deletepost/${data[currentIndex]._id}`, {
+          method: "delete",
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            const newData = data.filter((item) => {
+              return item._id !== result._id;
+            });
+            setData(newData);
+          })
+          .catch((err) => console.result);
+      })
+      .catch((err) => console.log(err));
     setOpenMoreModal(false);
   };
 
@@ -301,7 +336,13 @@ const Home = () => {
               <p onClick={editPost}>Edit post</p>
             )}
             {data[currentIndex].owner._id === localUser._id && (
-              <p onClick={deletePost}>Delete post</p>
+              <p
+                onClick={() => {
+                  deletePost();
+                }}
+              >
+                Delete post
+              </p>
             )}
             <p
               onClick={() => {
@@ -385,10 +426,12 @@ const Home = () => {
               <p style={{ marginBottom: "10px" }}>
                 <strong
                   onClick={() => {
-                    getList(item.likes);
-                    setOpenLikesModal(true);
+                    if (item.likes.length > 0) {
+                      getList(item.likes);
+                      setOpenLikesModal(true);
+                    }
                   }}
-                  style={{cursor:"pointer"}}
+                  style={{ cursor: "pointer" }}
                 >
                   {item.likes.length > 0 && item.likes.length}{" "}
                   {item.likes.length === 0
