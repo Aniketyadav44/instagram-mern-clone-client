@@ -57,14 +57,14 @@
   cursor: pointer;
 }
 
-.signinOuterBox{
+.signinOuterBox {
   width: 348px;
   background-color: white;
   border: 1px solid rgb(206, 206, 206);
   margin: 10px auto 0px auto;
 }
 
-.signinInnerBox{
+.signinInnerBox {
   background-color: white;
   display: flex;
   justify-content: center;
@@ -74,12 +74,12 @@
   font-size: 14px;
 }
 
-.signinText{
+.signinText {
   background-color: white;
 }
 
-.error{
-  color: #ED4956;
+.error {
+  color: #ed4956;
   font-size: 13px;
   font-weight: 600;
   line-height: 20px;
@@ -91,11 +91,17 @@
 }
 
 @media screen and (max-width: 400px) {
-  .signup, .signinOuterBox, .signinInnerBox {
+  .signup,
+  .signinOuterBox,
+  .signinInnerBox {
     width: 100%;
     background-color: #fafafa;
     border: none;
     margin: 0px;
+  }
+
+  .error {
+    background-color: #fafafa;
   }
 
   .input {
@@ -108,11 +114,12 @@
     min-width: 200px;
   }
 
-  .logo, .postLogo{
-    background-color: #FAFAFA;
+  .logo,
+  .postLogo {
+    background-color: #fafafa;
   }
 
-  .signinText{
-    background-color: #FAFAFA;
+  .signinText {
+    background-color: #fafafa;
   }
 }

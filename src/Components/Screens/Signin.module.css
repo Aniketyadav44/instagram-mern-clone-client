@@ -101,6 +101,10 @@
     margin: 0px;
   }
 
+  .error{
+    background-color: #fafafa;
+  }
+
   .input {
     width: 70%;
     min-width: 200px;

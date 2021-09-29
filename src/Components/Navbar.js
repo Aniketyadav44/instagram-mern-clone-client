@@ -16,6 +16,8 @@ const Navbar = () => {
   const location = useLocation();
   const [profileModal, setProfileModal] = useState(false);
 
+  const localUser = JSON.parse(localStorage.getItem("user"));
+
   const logOut = () => {
     localStorage.clear();
     dispatch({ type: "CLEAR" });
@@ -74,7 +76,7 @@ const Navbar = () => {
                 }}
                 alt="profile-pic"
                 className={styles.profilePic}
-                src="https://res.cloudinary.com/aniketyadav/image/upload/v1632396298/no_image_h0h6lq.jpg"
+                src={localUser.photoUrl}
               />
             </>
           )}
@@ -84,15 +86,15 @@ const Navbar = () => {
         <>
           <div className={styles.profileModal}>
             <div>
-              <Link
+              <a
                 style={{ textDecoration: "none" }}
-                to={state ? "/profile" : "/signin"}
+                href={state ? `/profile/${localUser._id}` : "/signin"}
               >
                 <div className={styles.modalItem}>
                   <AccountCircleOutlinedIcon />
                   <p style={{marginLeft:"5px"}}>Profile</p>
                 </div>
-              </Link>
+              </a>
             </div>
             <div>
               <div className={styles.modalItem}>

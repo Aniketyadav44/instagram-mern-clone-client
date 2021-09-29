@@ -75,9 +75,6 @@
 }
 
 .smallScreenGallery {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto;
   display: none;
 }
 
@@ -104,24 +101,102 @@
   display: none;
 }
 
-.bigScreenGallery img {
+.overlayImg {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  cursor: pointer;
+}
+
+.overlayContainer:hover .overlayImg {
+  opacity: 0.6;
+}
+
+.overlayBigContainer:hover .overlayImg {
+  opacity: 0.6;
+}
+
+.overlayBigContainer:hover .imgOverlayText {
+  opacity: 1;
+}
+
+.overlayContainer:hover .imgOverlayText {
+  opacity: 1;
+}
+
+.overlayBigContainer {
   width: 95.25%;
   height: 95.25%;
   padding: 3%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   position: relative;
 }
 
-.smallScreenGallery img {
+.overlayContainer {
+  position: relative;
   width: 32.3%;
   height: 32.3%;
   padding: 0.5%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
+  display: flex;
+  float: left;
+}
+
+.imgOverlayText {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.showMoreDiv {
+  display: flex;
+  flex-direction: column;
+  width: 225px;
+  overflow-y: auto;
+  overflow-x:hidden ;
+  height: 400px;
+}
+
+.followListItem {
+  display: flex;
+  border: none;
+  padding: 0px 20px;
+  align-items: center;
+}
+
+.followListItem img {
+  border-radius: 100px;
+  max-width: 31px;
+  max-height: 31px;
+  float: left;
+  margin: 20px 16px;
+  border: 1px solid rgb(206, 206, 206);
+}
+
+.followListItem p {
+  width: 200px;
+  font-size: 14px;
+}
+
+.followListHeading {
+  border-bottom: 1px solid rgb(206, 206, 206);
+}
+
+.followListHeading p {
+  text-align: center;
+  margin: 15px auto 10px auto;
+  font-weight: bold;
+}
+
+.folllowListDiv{
+  margin:"20px !important";
 }
 
 @media screen and (max-width: 850px) {
@@ -200,10 +275,17 @@
   .imageGallery {
     max-width: 100%;
   }
+
+  .followListItem p {
+    width: 140px;
+  }
+
+
 }
 
 @media screen and (max-width: 440px) {
   .button {
     width: 80%;
   }
+
 }
