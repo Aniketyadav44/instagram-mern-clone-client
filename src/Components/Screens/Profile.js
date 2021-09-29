@@ -44,8 +44,6 @@ const Profile = () => {
     getUser();
   }, []);
 
-  const editProfile = () => {};
-
   const follow = () => {
     fetch("/follow", {
       method: "put",
@@ -171,11 +169,9 @@ const Profile = () => {
           <div className={styles.profileMain}>
             <div className={styles.profile}>
               <div>
-                <img
-                  className={styles.profilePic}
-                  alt="profile_pic"
-                  src={user.photoUrl}
-                />
+                <div className={styles.profilePic}>
+                  <img alt="profile_pic" src={user.photoUrl} />
+                </div>
                 <div className={styles.profileDetails}>
                   <div className={styles.hero}>
                     <p className={styles.usernameStyle}>{user.username}</p>
@@ -194,6 +190,9 @@ const Profile = () => {
                           border: "1px solid #ccc",
                         }}
                         className={styles.button}
+                        onClick={() => {
+                          history.push(`/edituser/${user._id}`);
+                        }}
                       >
                         Edit Profile
                       </button>

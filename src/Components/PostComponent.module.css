@@ -31,11 +31,19 @@
 
 .profilePic {
   border-radius: 100px;
-  max-width: 32px;
-  max-height: 32px;
+  width: 32px;
+  height: 32px;
   float: left;
   margin: 20px 16px;
   border: 1px solid rgb(206, 206, 206);
+  overflow: hidden;
+}
+
+.profilePic img {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
 .verifiedIcon {
@@ -120,7 +128,7 @@
   cursor: pointer;
 }
 
-.editPostBtn{
+.editPostBtn {
   color: black;
   text-decoration: none;
   right: 0px;

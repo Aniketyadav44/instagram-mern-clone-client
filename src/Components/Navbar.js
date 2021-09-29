@@ -7,7 +7,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 const Navbar = () => {
@@ -70,14 +70,17 @@ const Navbar = () => {
                   className={styles.profilePicSelect}
                 ></div>
               )}
-              <img
-                onClick={() => {
-                  profileModal ? setProfileModal(false) : setProfileModal(true);
-                }}
-                alt="profile-pic"
-                className={styles.profilePic}
-                src={localUser.photoUrl}
-              />
+              <div className={styles.profilePic}>
+                <img
+                  onClick={() => {
+                    profileModal
+                      ? setProfileModal(false)
+                      : setProfileModal(true);
+                  }}
+                  alt="profile-pic"
+                  src={localUser.photoUrl}
+                />
+              </div>
             </>
           )}
         </div>
@@ -92,14 +95,14 @@ const Navbar = () => {
               >
                 <div className={styles.modalItem}>
                   <AccountCircleOutlinedIcon />
-                  <p style={{marginLeft:"5px"}}>Profile</p>
+                  <p style={{ marginLeft: "5px" }}>Profile</p>
                 </div>
               </a>
             </div>
             <div>
               <div className={styles.modalItem}>
                 <SettingsIcon />
-                <p style={{marginLeft:"5px"}}>Settings</p>
+                <p style={{ marginLeft: "5px" }}>Settings</p>
               </div>
             </div>
             <div style={{ borderTop: "2px solid #ccc" }} onClick={logOut}>

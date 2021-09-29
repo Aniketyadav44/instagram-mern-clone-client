@@ -9,6 +9,7 @@
 
 .linksDiv {
   background-color: white;
+  display: flex;
 }
 
 .logo {
@@ -28,9 +29,17 @@
 .profilePic {
   width: 22px;
   height: 22px;
+  border-radius: 50%;
+  overflow: hidden;
   border: 1px solid rgb(206, 206, 206);
-  border-radius: 100px;
   margin-bottom: 2px;
+}
+
+.profilePic img{
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
 .navIcon {

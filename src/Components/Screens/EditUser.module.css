@@ -1,0 +1,36 @@
+body {
+  background-color: #fafafa;
+  overflow-x: hidden;
+}
+
+.mainDiv {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(206, 206, 206);
+  margin: 25px auto 0px auto;
+  border-radius: 2px;
+  width: 700px;
+}
+
+.profilePic {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgb(206, 206, 206);
+}
+
+.profilePic img {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 750px) {
+  .mainDiv {
+    width: 100%;
+    margin: 25px 0px;
+  }
+}

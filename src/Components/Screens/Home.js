@@ -218,12 +218,11 @@ const Home = () => {
 
   const deletePost = () => {
     const imageId = data[currentIndex].photoUrl.split("/");
-    const imgPublicId = (
-      imageId[imageId.length - 2] +
-      "/" +
-      imageId[imageId.length - 1]
-    ).replace(".jpg", "");
-    console.log(imgPublicId);
+    const imgId =
+      imageId[imageId.length - 2] + "/" + imageId[imageId.length - 1];
+    const imgPublicId = imgId.includes(".jpg")
+      ? imgId.replace(".jpg", "")
+      : imgId.replace(".jpeg", "");
     fetch("/delete", {
       method: "post",
       headers: {
@@ -393,7 +392,15 @@ const Home = () => {
         return (
           <div key={item._id} className={styles.mainPostDiv}>
             <div className={styles.postHeader}>
-              <img alt="profile_pic" src={item.owner.photoUrl} />
+              <Link
+                to={`/profile/${item.owner._id}`}
+                style={{ color: "black", textDecoration: "none" }}
+              >
+                <div className={styles.profilePic}>
+                  <img alt="profile_pic" src={item.owner.photoUrl} />
+                </div>
+              </Link>
+
               <div>
                 <Link
                   to={`/profile/${item.owner._id}`}

@@ -9,6 +9,7 @@ import Profile from "./Components/Screens/Profile";
 import CreatePost from "./Components/Screens/CreatePost";
 import SinglePost from "./Components/Screens/SinglePost";
 import EditPost from "./Components/Screens/EditPost";
+import EditUser from "./Components/Screens/EditUser";
 import { initialState, reducer } from "./Reducers/userReducer";
 
 export const UserContext = createContext();
@@ -46,6 +47,9 @@ const Routing = () => {
       </Route>
       <Route path="/edit/:postId">
         <EditPost/>
+      </Route>
+      <Route path="/edituser/:userId">
+        <EditUser/>
       </Route>
     </Switch>
   );

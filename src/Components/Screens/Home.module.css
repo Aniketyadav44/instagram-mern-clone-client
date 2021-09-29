@@ -19,12 +19,20 @@ body {
   align-items: center;
 }
 
-.postHeader img {
+.profilePic {
   width: 32px;
   height: 32px;
   border-radius: 100px;
   border: 1px solid #ccc;
+  overflow: hidden;
   margin: 14px 16px;
+}
+
+.profilePic img {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
 .postHeader h5 {
@@ -105,7 +113,7 @@ body {
   flex-direction: column;
   width: 225px;
   overflow-y: auto;
-  overflow-x:hidden ;
+  overflow-x: hidden;
   height: 400px;
 }
 
@@ -140,8 +148,8 @@ body {
   font-weight: bold;
 }
 
-.folllowListDiv{
-  margin:"20px !important";
+.folllowListDiv {
+  margin: "20px !important";
 }
 
 @media screen and (max-width: 650px) {

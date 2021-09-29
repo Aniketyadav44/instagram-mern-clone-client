@@ -5,6 +5,14 @@
   float: left;
   margin-right: 80px;
   border: 1px solid rgb(206, 206, 206);
+  overflow: hidden;
+}
+
+.profilePic img {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
 .profileMain {
@@ -160,7 +168,7 @@
   flex-direction: column;
   width: 225px;
   overflow-y: auto;
-  overflow-x:hidden ;
+  overflow-x: hidden;
   height: 400px;
 }
 
@@ -195,8 +203,8 @@
   font-weight: bold;
 }
 
-.folllowListDiv{
-  margin:"20px !important";
+.folllowListDiv {
+  margin: "20px !important";
 }
 
 @media screen and (max-width: 850px) {
@@ -279,13 +287,10 @@
   .followListItem p {
     width: 140px;
   }
-
-
 }
 
 @media screen and (max-width: 440px) {
   .button {
     width: 80%;
   }
-
 }

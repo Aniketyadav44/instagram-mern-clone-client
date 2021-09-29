@@ -7,7 +7,7 @@ import verifiedIcon from "../Assets/verified.png";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 
 const PostComponent = (props) => {
   const [post, setPost] = useState(props.data);
@@ -149,11 +149,9 @@ const PostComponent = (props) => {
             alignSelf: "center",
           }}
         >
-          <img
-            className={styles.profilePic}
-            alt="profile_pic"
-            src={post.owner.photoUrl}
-          />
+          <div className={styles.profilePic}>
+            <img alt="profile_pic" src={post.owner.photoUrl} />
+          </div>
         </a>
 
         <div style={{ display: "flex", marginRight: "175px" }}>
@@ -208,7 +206,7 @@ const PostComponent = (props) => {
             ))}
           {post.owner._id === localUser._id && (
             <Link className={styles.editPostBtn} to={`/edit/${post._id}`}>
-              <EditIcon style={{fontSize:"18px"}}/>
+              <EditIcon style={{ fontSize: "18px" }} />
             </Link>
           )}
         </div>
@@ -231,12 +229,9 @@ const PostComponent = (props) => {
         <div className={styles.commentsWrapper}>
           <div className={styles.commentsDiv}>
             <div className={styles.commentDivItem}>
-              <img
-                style={{ marginTop: "0px" }}
-                className={styles.profilePic}
-                alt="profile_pic"
-                src={post.owner.photoUrl}
-              />
+              <div style={{ marginTop: "0px" }} className={styles.profilePic}>
+                <img alt="profile_pic" src={post.owner.photoUrl} />
+              </div>
               {post.owner.verified && (
                 <img
                   alt="verifid_icon"
@@ -255,12 +250,12 @@ const PostComponent = (props) => {
               .map((comment) => {
                 return (
                   <div key={comment._id} className={styles.commentDivItem}>
-                    <img
+                    <div
                       style={{ marginTop: "0px" }}
                       className={styles.profilePic}
-                      alt="profile_pic"
-                      src={comment.postedBy.photoUrl}
-                    />
+                    >
+                      <img alt="profile_pic" src={comment.postedBy.photoUrl} />
+                    </div>
                     <p style={{ marginLeft: "66px", fontSize: "14px" }}>
                       <strong>{comment.postedBy.username} </strong>
                       {comment.postedBy.verified && (
