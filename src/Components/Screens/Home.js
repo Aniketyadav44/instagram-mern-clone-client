@@ -248,14 +248,17 @@ const Home = () => {
               return item._id !== result._id;
             });
             setData(newData);
+            toast.info("Post Deleted!", {
+              position: toast.POSITION.BOTTOM_CENTER,
+              style: { backgroundColor: "#5A5B5C", color: "white" },
+              icon: false,
+              autoClose: 3000,
+              hideProgressBar: true,
+            });
           })
           .catch((err) => console.result);
       })
       .catch((err) => console.log(err));
-    setOpenMoreModal(false);
-  };
-
-  const editPost = (id) => {
     setOpenMoreModal(false);
   };
 
@@ -333,7 +336,12 @@ const Home = () => {
             </Link>
             <p onClick={copyToClipboard}>Copy Link</p>
             {data[currentIndex].owner._id === localUser._id && (
-              <p onClick={editPost}>Edit post</p>
+              <Link
+                style={{ color: "black", textDecoration: "none" }}
+                to={`/edit/${data[currentIndex]._id}`}
+              >
+                <p>Edit post</p>
+              </Link>
             )}
             {data[currentIndex].owner._id === localUser._id && (
               <p

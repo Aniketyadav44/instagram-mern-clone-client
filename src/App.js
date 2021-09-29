@@ -8,6 +8,7 @@ import Signup from "./Components/Screens/Signup";
 import Profile from "./Components/Screens/Profile";
 import CreatePost from "./Components/Screens/CreatePost";
 import SinglePost from "./Components/Screens/SinglePost";
+import EditPost from "./Components/Screens/EditPost";
 import { initialState, reducer } from "./Reducers/userReducer";
 
 export const UserContext = createContext();
@@ -42,6 +43,9 @@ const Routing = () => {
       </Route>
       <Route path="/post/:postId">
         <SinglePost />
+      </Route>
+      <Route path="/edit/:postId">
+        <EditPost/>
       </Route>
     </Switch>
   );

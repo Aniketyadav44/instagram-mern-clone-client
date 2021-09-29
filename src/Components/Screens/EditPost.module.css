@@ -1,0 +1,87 @@
+.mainBody {
+  padding: 0px 16%;
+}
+
+.mainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  background-color: white;
+  border: 1px solid grey;
+  margin: 10px auto;
+  padding: 20px 100px;
+}
+
+.captionDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.preview {
+  max-width: 300px;
+  margin: 10px auto;
+  border-radius: 10px;
+  overflow: hidden;
+  object-fit: contain;
+  border: 1px solid rgb(168, 168, 168);
+}
+
+.cropPageArroDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.error {
+  color: #ed4956;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+  margin-top: 15px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.arrow {
+  margin: 10px !important;
+  font-size: 30px !important;
+  cursor: pointer;
+}
+
+.caption {
+  padding: 5px;
+  margin: 10px 0px;
+  border: 1px solid rgb(206, 206, 206);
+}
+
+.caption:focus {
+  outline: 1px solid rgb(168, 168, 168);
+}
+
+.locationTextDiv {
+  color: black;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 700px) {
+  .mainBody {
+    padding: 0px 20px;
+  }
+
+  .mainDiv {
+    width: 80%;
+    border: none;
+    padding: 20px;
+    margin: 0px auto;
+    background-color: #fafafa;
+  }
+
+  .preview {
+    max-width: 80%;
+    margin: 0px auto;
+  }
+}
