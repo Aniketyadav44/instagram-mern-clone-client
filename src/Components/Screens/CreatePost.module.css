@@ -104,22 +104,33 @@
   cursor: pointer;
 }
 
-.caption{
-	padding: 5px;
-    margin: 10px 0px;
-    border: 1px solid rgb(206,206,206);
+.caption {
+  padding: 5px;
+  margin: 10px 0px;
+  border: 1px solid rgb(206, 206, 206);
 }
 
-.caption:focus{
-    outline: 1px solid rgb(168, 168, 168);
+.caption:focus {
+  outline: 1px solid rgb(168, 168, 168);
 }
 
-.locationTextDiv{
-  color:black;
+.locationTextDiv {
+  color: black;
   display: flex;
   align-items: center;
   font-size: 12px;
   font-weight: bold;
+}
+
+.loadingGif {
+  width: 100px;
+  height: 100px;
+  margin: -29px 0px;
+  align-self: center;
+}
+
+.caption {
+  resize: vertical !important;
 }
 
 @media screen and (max-width: 700px) {

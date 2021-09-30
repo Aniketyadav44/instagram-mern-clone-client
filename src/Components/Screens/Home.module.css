@@ -152,6 +152,13 @@ body {
   margin: "20px !important";
 }
 
+.loadingGif {
+  width: 100px;
+  height: 100px;
+  background-color: transparent;
+  align-self: center;
+}
+
 @media screen and (max-width: 650px) {
   .mainPostDiv {
     margin: 25px 10px 0px 10px;

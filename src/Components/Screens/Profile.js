@@ -33,7 +33,6 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((results) => {
-        console.log(results);
         setUser(results.user);
         setData(results.posts);
       })

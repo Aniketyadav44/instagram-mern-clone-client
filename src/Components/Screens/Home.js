@@ -6,6 +6,7 @@ import Modal from "../Modal";
 import PostComponent from "../PostComponent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import loadingPhoto from "../../Assets/Spinner.gif";
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -22,6 +23,7 @@ const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(null);
   const [openLikesModal, setOpenLikesModal] = useState(false);
   const [modalList, setModalList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const token = localStorage.getItem("jwt");
   if (!token) {
@@ -216,6 +218,7 @@ const Home = () => {
   };
 
   const deletePost = () => {
+    setLoading(true);
     const imageId = data[currentIndex].photoUrl.split("/");
     const imgId =
       imageId[imageId.length - 2] + "/" + imageId[imageId.length - 1];
@@ -245,6 +248,7 @@ const Home = () => {
             const newData = data.filter((item) => {
               return item._id !== result._id;
             });
+            setLoading(false);
             setData(newData);
             toast.info("Post Deleted!", {
               position: toast.POSITION.BOTTOM_CENTER,
@@ -294,6 +298,26 @@ const Home = () => {
 
           <p style={{ color: "rgba(var(--f52,142,142,142),1)" }}>{item.name}</p>
         </div>
+      </div>
+    );
+  };
+
+  const SmartText = ({ text, length = 100 }) => {
+    const [showLess, setShowLess] = React.useState(true);
+
+    if (text.length < length) {
+      return <p>{text}</p>;
+    }
+
+    return (
+      <div>
+        <p>{showLess ? `${text.slice(0, length)}...` : text}</p>
+        <p
+          style={{ color: "grey", fontWeight: "bold", cursor: "pointer" }}
+          onClick={() => setShowLess(!showLess)}
+        >
+          &nbsp; {showLess ? "More" : "Less"}
+        </p>
       </div>
     );
   };
@@ -387,6 +411,11 @@ const Home = () => {
           />
         </Modal>
       )}
+      {loading && (
+        <Modal style={{backgroundColor:"transparent"}} closeModal={setLoading}>
+          <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
+        </Modal>
+      )}
       {data.map((item, index) => {
         return (
           <div key={item._id} className={styles.mainPostDiv}>
@@ -457,7 +486,7 @@ const Home = () => {
               </p>
               <p style={{ whiteSpace: "pre-line" }}>
                 <strong>{item.owner.username}</strong>&nbsp;
-                {item.caption}
+                <SmartText text={item.caption} />
               </p>
               {item.comments.length > 2 && (
                 <p

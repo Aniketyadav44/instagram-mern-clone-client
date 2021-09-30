@@ -39,7 +39,7 @@
 }
 
 .hero {
-  max-width: 280px;
+  max-width:100%;
   z-index: 9;
 }
 

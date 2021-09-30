@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import styles from "./CreatePost.module.css";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import loadingPhoto from "../../Assets/Spinner.gif";
 import { UserContext } from "../../App";
 import { useHistory } from "react-router-dom";
 
@@ -17,6 +18,7 @@ const CreatePost = () => {
   const [image, setImage] = useState(null);
   const [crop, setCrop] = useState({ aspect: 1 / 1 });
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [showCrop, setShowCrop] = useState(false);
   const [showCaption, setShowCaption] = useState(false);
@@ -51,6 +53,7 @@ const CreatePost = () => {
 
   useEffect(() => {
     if (url) {
+      setLoading(true);
       fetch("/createpost", {
         method: "post",
         headers: {
@@ -68,6 +71,7 @@ const CreatePost = () => {
           if (data.error) {
             setErrorMsg(data.error);
           } else {
+            setLoading(false);
             history.push("/");
           }
         })
@@ -123,6 +127,7 @@ const CreatePost = () => {
   };
 
   const upload = () => {
+    setLoading(true);
     const data = new FormData();
     data.append("file", result);
     data.append("upload_preset", "insta-clone");
@@ -239,6 +244,13 @@ const CreatePost = () => {
                 <div>
                   <p className={styles.error}>{errorMsg}</p>
                 </div>
+              )}
+              {loading && (
+                <img
+                  className={styles.loadingGif}
+                  alt="loading"
+                  src={loadingPhoto}
+                />
               )}
               <div className={styles.cropPageArroDiv}>
                 <ArrowBackOutlinedIcon

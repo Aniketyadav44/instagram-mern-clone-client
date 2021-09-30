@@ -20,6 +20,9 @@ export const reducer = (state, action) => {
       ...state,
       photoUrl: action.payload,
     };
+  }
+  if (action.type === "UPDATEUSER") {
+    return action.payload;
   } else {
     return state;
   }
