@@ -48,7 +48,7 @@ const Routing = () => {
       <Route path="/edit/:postId">
         <EditPost />
       </Route>
-      <Route path="/edituser/:userId">
+      <Route path="/edituser">
         <EditUser />
       </Route>
     </Switch>

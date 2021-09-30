@@ -190,7 +190,7 @@ const Profile = () => {
                         }}
                         className={styles.button}
                         onClick={() => {
-                          history.push(`/edituser/${user._id}`);
+                          history.push(`/edituser`);
                         }}
                       >
                         Edit Profile
