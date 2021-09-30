@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./PostComponent.module.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,11 +8,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import EditIcon from "@mui/icons-material/Edit";
+import { UserContext } from "../App";
 
 const PostComponent = (props) => {
+  const { state, dispatch } = useContext(UserContext);
   const [post, setPost] = useState(props.data);
   const [comment, setComment] = useState("");
-  const localUser = JSON.parse(localStorage.getItem("user"));
 
   const follow = (id) => {
     fetch("/follow", {
@@ -175,13 +176,11 @@ const PostComponent = (props) => {
               src={verifiedIcon}
             />
           )}
-          {post.owner._id !== localUser._id && (
-            <div className={styles.dot}></div>
-          )}
-          {post.owner._id !== localUser._id &&
+          {post.owner._id !== state._id && <div className={styles.dot}></div>}
+          {post.owner._id !== state._id &&
             (post.owner.followers &&
             post.owner.followers &&
-            post.owner.followers.includes(localUser._id) ? (
+            post.owner.followers.includes(state._id) ? (
               <p
                 onClick={() => {
                   unfollow(post.owner._id);
@@ -204,7 +203,7 @@ const PostComponent = (props) => {
                 <strong>Follow</strong>
               </p>
             ))}
-          {post.owner._id === localUser._id && (
+          {post.owner._id === state._id && (
             <Link className={styles.editPostBtn} to={`/edit/${post._id}`}>
               <EditIcon style={{ fontSize: "18px" }} />
             </Link>
@@ -274,7 +273,7 @@ const PostComponent = (props) => {
         </div>
         <div className={styles.postFooter}>
           <div>
-            {post.likes && post.likes.includes(localUser._id) ? (
+            {post.likes && post.likes.includes(state._id) ? (
               <FavoriteIcon
                 onClick={() => {
                   unlikePost(post._id);

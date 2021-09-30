@@ -18,7 +18,7 @@ const Routing = () => {
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       dispatch({ type: "USER", payload: user });
     } else {
@@ -46,10 +46,10 @@ const Routing = () => {
         <SinglePost />
       </Route>
       <Route path="/edit/:postId">
-        <EditPost/>
+        <EditPost />
       </Route>
       <Route path="/edituser/:userId">
-        <EditUser/>
+        <EditUser />
       </Route>
     </Switch>
   );

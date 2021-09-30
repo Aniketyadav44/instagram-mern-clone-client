@@ -16,8 +16,6 @@ const Navbar = () => {
   const location = useLocation();
   const [profileModal, setProfileModal] = useState(false);
 
-  const localUser = JSON.parse(localStorage.getItem("user"));
-
   const logOut = () => {
     localStorage.clear();
     dispatch({ type: "CLEAR" });
@@ -78,7 +76,7 @@ const Navbar = () => {
                       : setProfileModal(true);
                   }}
                   alt="profile-pic"
-                  src={localUser.photoUrl}
+                  src={state.photoUrl}
                 />
               </div>
             </>
@@ -91,7 +89,7 @@ const Navbar = () => {
             <div>
               <a
                 style={{ textDecoration: "none" }}
-                href={state ? `/profile/${localUser._id}` : "/signin"}
+                href={state ? `/profile/${state._id}` : "/signin"}
               >
                 <div className={styles.modalItem}>
                   <AccountCircleOutlinedIcon />

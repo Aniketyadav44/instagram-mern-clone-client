@@ -14,7 +14,6 @@ const Profile = () => {
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
   const token = localStorage.getItem("jwt");
-  const localUser = JSON.parse(localStorage.getItem("user"));
   const { userId } = useParams();
   const [user, setUser] = useState(null);
   const [data, setData] = useState(null);
@@ -182,7 +181,7 @@ const Profile = () => {
                         src={verifiedIcon}
                       />
                     )}
-                    {userId === localUser._id ? (
+                    {userId === state._id ? (
                       <button
                         style={{
                           backgroundColor: "white",
@@ -198,7 +197,7 @@ const Profile = () => {
                       </button>
                     ) : (
                       <>
-                        {user.followers.includes(localUser._id) ? (
+                        {user.followers.includes(state._id) ? (
                           <button
                             style={{
                               backgroundColor: "white",
@@ -228,9 +227,11 @@ const Profile = () => {
                       <span
                         style={{ cursor: "pointer" }}
                         onClick={() => {
-                          getList(user.followers);
-                          setOpenListModalType("followers");
-                          setOpenListModal(true);
+                          if (user.followers.length > 0) {
+                            getList(user.followers);
+                            setOpenListModalType("followers");
+                            setOpenListModal(true);
+                          }
                         }}
                       >
                         <strong>{user.followers.length}</strong> followers
@@ -239,9 +240,11 @@ const Profile = () => {
                       <span
                         style={{ cursor: "pointer" }}
                         onClick={() => {
-                          getList(user.following);
-                          setOpenListModalType("following");
-                          setOpenListModal(true);
+                          if (user.following.length > 0) {
+                            getList(user.following);
+                            setOpenListModalType("following");
+                            setOpenListModal(true);
+                          }
                         }}
                       >
                         <strong>{user.following.length}</strong> following
@@ -318,9 +321,11 @@ const Profile = () => {
             <div
               style={{ cursor: "pointer" }}
               onClick={() => {
-                getList(user.followers);
-                setOpenListModalType("followers");
-                setOpenListModal(true);
+                if (user.followers.length > 0) {
+                  getList(user.followers);
+                  setOpenListModalType("followers");
+                  setOpenListModal(true);
+                }
               }}
               className={styles.spanText}
             >
@@ -330,9 +335,11 @@ const Profile = () => {
             <div
               style={{ cursor: "pointer" }}
               onClick={() => {
-                getList(user.following);
-                setOpenListModalType("following");
-                setOpenListModal(true);
+                if (user.following.length > 0) {
+                  getList(user.following);
+                  setOpenListModalType("following");
+                  setOpenListModal(true);
+                }
               }}
               className={styles.spanText}
             >

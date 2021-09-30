@@ -24,7 +24,6 @@ const Home = () => {
   const [modalList, setModalList] = useState([]);
   const history = useHistory();
   const token = localStorage.getItem("jwt");
-  const localUser = JSON.parse(localStorage.getItem("user"));
   if (!token) {
     history.push("/signin");
   }
@@ -304,8 +303,8 @@ const Home = () => {
       {openMoreModal && (
         <Modal type="popup" closeModal={setOpenMoreModal}>
           <div className={styles.showMoreDiv}>
-            {data[currentIndex].owner._id !== localUser._id &&
-              (data[currentIndex].owner.followers.includes(localUser._id) ? (
+            {data[currentIndex].owner._id !== state._id &&
+              (data[currentIndex].owner.followers.includes(state._id) ? (
                 <p style={{ color: "red" }}>
                   <strong
                     onClick={() => {
@@ -334,7 +333,7 @@ const Home = () => {
               <p>Go to post</p>
             </Link>
             <p onClick={copyToClipboard}>Copy Link</p>
-            {data[currentIndex].owner._id === localUser._id && (
+            {data[currentIndex].owner._id === state._id && (
               <Link
                 style={{ color: "black", textDecoration: "none" }}
                 to={`/edit/${data[currentIndex]._id}`}
@@ -342,7 +341,7 @@ const Home = () => {
                 <p>Edit post</p>
               </Link>
             )}
-            {data[currentIndex].owner._id === localUser._id && (
+            {data[currentIndex].owner._id === state._id && (
               <p
                 onClick={() => {
                   deletePost();
@@ -421,7 +420,7 @@ const Home = () => {
             <img src={item.photoUrl} alt="post" />
             <div className={styles.postFooter}>
               <div>
-                {item.likes.includes(localUser._id) ? (
+                {item.likes.includes(state._id) ? (
                   <FavoriteIcon
                     onClick={() => {
                       unlikePost(item._id);
