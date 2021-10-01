@@ -457,11 +457,11 @@ const EditUser = () => {
         )}
         <button
           className={styles.button}
-          style={{ marginTop: "20px" }}
+          style={{ marginTop: "20px",width:"130px" }}
           onClick={() => {
             if (newPassword.length < 8) {
               setErrorMsg(
-                "Please make sure new password's length is greater than 8 characters."
+                "Please make sure new password's length is atleast 8 characters."
               );
               setError(true);
               setTimeout(() => setError(false), 2000);
@@ -472,7 +472,7 @@ const EditUser = () => {
             }
           }}
         >
-          Submit
+          Change Password
         </button>
       </div>
       <ToastContainer />

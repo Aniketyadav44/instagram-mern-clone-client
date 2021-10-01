@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "./Signup.module.css";
 import { Link, useHistory } from "react-router-dom";
+import loadingPhoto from "../../Assets/Spinner.gif";
+import Modal from "../Modal";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -8,11 +10,17 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const signUp = (e) => {
+    if (password.length < 8) {
+      setError("Please make sure password's length is atleast 8 characters.");
+      return;
+    }
     setError("");
     e.preventDefault();
+    setLoading(true);
     fetch("/signup", {
       method: "post",
       headers: {
@@ -31,6 +39,7 @@ const Signup = () => {
           setError(result.error);
           return;
         } else {
+          setLoading(false);
           history.push("/signin");
         }
       })
@@ -41,6 +50,11 @@ const Signup = () => {
 
   return (
     <>
+      {loading && (
+        <Modal type="popup" closeModal={setLoading}>
+          <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
+        </Modal>
+      )}
       <div className={styles.signup}>
         <p className={styles.logo}>Instagram</p>
         <p className={styles.postLogo}>
@@ -85,9 +99,7 @@ const Signup = () => {
         <button className={styles.signupButton} onClick={signUp}>
           Sign up
         </button>
-        {error&&<p className={styles.error}>
-          {error}
-        </p>}
+        {error && <p className={styles.error}>{error}</p>}
         <p
           style={{ fontSize: "12px", marginBottom: "40px", marginTop: "15px" }}
           className={styles.postLogo}

@@ -2,17 +2,21 @@ import React, { useState, useContext } from "react";
 import styles from "./Signin.module.css";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../../App";
+import loadingPhoto from "../../Assets/Spinner.gif";
+import Modal from "../Modal";
 
 const Signin = () => {
   const { state, dispatch } = useContext(UserContext);
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const signIn = (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
     fetch("/signin", {
       method: "post",
       headers: {
@@ -27,12 +31,14 @@ const Signin = () => {
       .then((res) => res.json())
       .then((result) => {
         if (result.error) {
+          setLoading(false);
           setError(result.error);
           return;
         }
         localStorage.setItem("jwt", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
         dispatch({ type: "USER", payload: result.user });
+        setLoading(false);
         history.push("/");
       })
       .catch((err) => {
@@ -42,6 +48,11 @@ const Signin = () => {
 
   return (
     <>
+      {loading && (
+        <Modal type="popup" closeModal={setLoading}>
+          <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
+        </Modal>
+      )}
       <div className={styles.signin}>
         <p className={styles.logo}>Instagram</p>
         <input

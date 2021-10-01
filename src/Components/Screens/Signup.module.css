@@ -90,6 +90,13 @@
   background-color: white;
 }
 
+.loadingGif {
+  width: 100px;
+  height: 100px;
+  background-color: transparent;
+  align-self: center;
+}
+
 @media screen and (max-width: 400px) {
   .signup,
   .signinOuterBox,
