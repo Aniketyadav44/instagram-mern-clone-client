@@ -6,6 +6,7 @@ import Modal from "../Modal";
 import PostComponent from "../PostComponent";
 
 import verifiedIcon from "../../Assets/verified.png";
+import loadingPhoto from "../../Assets/Spinner.gif";
 
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -22,6 +23,8 @@ const Profile = () => {
   const [openListModal, setOpenListModal] = useState(false);
   const [openListModalType, setOpenListModalType] = useState("");
   const [modalList, setModalList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [listLoading, setListLoading] = useState(false);
   if (!token) {
     history.push("/signin");
   }
@@ -33,6 +36,7 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((results) => {
+        setLoading(false);
         setUser(results.user);
         setData(results.posts);
       })
@@ -92,6 +96,7 @@ const Profile = () => {
   };
 
   const getList = (list) => {
+    setListLoading(true);
     const bodyParam = list.toString();
     fetch(`/userlist/${bodyParam}`, {
       method: "get",
@@ -102,6 +107,7 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((results) => {
+        setListLoading(false);
         setModalList(results);
       })
       .catch((err) => console.log(err));
@@ -146,20 +152,34 @@ const Profile = () => {
       )}
       {openListModal && (
         <Modal type="popup" closeModal={setOpenListModal}>
-          <div style={{ overflow: "hidden" }}>
-            <div className={styles.followListHeading}>
-              <p>
-                {openListModalType === "followers" ? "Followers" : "Following"}
-              </p>
+          {listLoading ? (
+            <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
+          ) : (
+            <div style={{ overflow: "hidden" }}>
+              <div className={styles.followListHeading}>
+                <p>
+                  {openListModalType === "followers"
+                    ? "Followers"
+                    : "Following"}
+                </p>
+              </div>
+              <div className={styles.showMoreDiv}>
+                <>
+                  {modalList.map((item) => {
+                    return <FollowListItem key={item._id} data={item} />;
+                  })}
+                </>
+              </div>
             </div>
-            <div className={styles.showMoreDiv}>
-              <>
-                {modalList.map((item) => {
-                  return <FollowListItem key={item._id} data={item} />;
-                })}
-              </>
-            </div>
-          </div>
+          )}
+        </Modal>
+      )}
+      {loading && (
+        <Modal
+        type="popup"
+          closeModal={setLoading}
+        >
+          <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
         </Modal>
       )}
       {user && (

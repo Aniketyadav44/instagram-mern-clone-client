@@ -24,6 +24,8 @@ const Home = () => {
   const [openLikesModal, setOpenLikesModal] = useState(false);
   const [modalList, setModalList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [homeLoading, setHomeLoading] = useState(true);
+  const [likesLoading, setLikesLoading] = useState(false);
   const history = useHistory();
   const token = localStorage.getItem("jwt");
   if (!token) {
@@ -39,6 +41,7 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        setHomeLoading(false);
         setData(result.posts);
       })
       .catch((err) => {
@@ -265,6 +268,7 @@ const Home = () => {
   };
 
   const getList = (list) => {
+    setLikesLoading(true);
     const bodyParam = list.toString();
     fetch(`/userlist/${bodyParam}`, {
       method: "get",
@@ -275,6 +279,7 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((results) => {
+        setLikesLoading(false);
         setModalList(results);
       })
       .catch((err) => console.log(err));
@@ -386,18 +391,22 @@ const Home = () => {
       )}
       {openLikesModal && (
         <Modal type="popup" closeModal={setOpenLikesModal}>
-          <div style={{ overflow: "hidden" }}>
-            <div className={styles.followListHeading}>
-              <p>Likes</p>
+          {likesLoading ? (
+            <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
+          ) : (
+            <div style={{ overflow: "hidden" }}>
+              <div className={styles.followListHeading}>
+                <p>Likes</p>
+              </div>
+              <div className={styles.showLikesDiv}>
+                <>
+                  {modalList.map((item) => {
+                    return <FollowListItem key={item._id} data={item} />;
+                  })}
+                </>
+              </div>
             </div>
-            <div className={styles.showLikesDiv}>
-              <>
-                {modalList.map((item) => {
-                  return <FollowListItem key={item._id} data={item} />;
-                })}
-              </>
-            </div>
-          </div>
+          )}
         </Modal>
       )}
       {openModal && data[currentIndex] && (
@@ -412,7 +421,12 @@ const Home = () => {
         </Modal>
       )}
       {loading && (
-        <Modal style={{backgroundColor:"transparent"}} closeModal={setLoading}>
+        <Modal type="popup" closeModal={setLoading}>
+          <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
+        </Modal>
+      )}
+      {homeLoading && (
+        <Modal type="popup" closeModal={setHomeLoading}>
           <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
         </Modal>
       )}

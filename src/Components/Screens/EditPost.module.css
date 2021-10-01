@@ -67,6 +67,13 @@
   font-weight: bold;
 }
 
+.loadingGif {
+  width: 100px;
+  height: 100px;
+  background-color: transparent;
+  align-self: center;
+}
+
 @media screen and (max-width: 700px) {
   .mainBody {
     padding: 0px 20px;

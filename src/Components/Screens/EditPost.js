@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./EditPost.module.css";
 import { useHistory, useParams } from "react-router-dom";
+import Modal from "../Modal";
+import loadingPhoto from "../../Assets/Spinner.gif";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
@@ -18,6 +20,7 @@ const EditPost = () => {
   const [post, setPost] = useState([]);
   const [location, setLocation] = useState("");
   const [caption, setCaption] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`/p/${postId}`, {
@@ -28,6 +31,7 @@ const EditPost = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        setLoading(false);
         setPost(result);
         setLocation(result.location);
         setCaption(result.caption);
@@ -36,6 +40,7 @@ const EditPost = () => {
   }, []);
 
   const update = () => {
+    setLoading(true);
     fetch("/editpost", {
       method: "put",
       headers: {
@@ -50,12 +55,19 @@ const EditPost = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        setLoading(false);
         history.push(`/post/${postId}`);
       })
       .catch((err) => console.log(err));
   };
 
   return (
+    <>
+      {loading && (
+        <Modal type="popup" closeModal={setLoading}>
+          <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
+        </Modal>
+      )}
       <div className={styles.mainBody}>
         <div className={styles.mainDiv}>
           {post && (
@@ -122,6 +134,7 @@ const EditPost = () => {
           )}
         </div>
       </div>
+    </>
   );
 };
 
