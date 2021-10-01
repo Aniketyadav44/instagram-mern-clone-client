@@ -273,6 +273,7 @@ const CreatePost = () => {
           )}
         </div>
       </div>
+      <p className={styles.footerText}>© 2021 Instagram clone from E-ASY Productions(Aniket)</p>
     </div>
   );
 };

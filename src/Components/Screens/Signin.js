@@ -77,7 +77,7 @@ const Signin = () => {
           Log in
         </button>
         {error && <p className={styles.error}>{error}</p>}
-        <Link className={styles.forgotPassText} to="/">
+        <Link className={styles.forgotPassText} to="/reset">
           <p>Forgot password?</p>
         </Link>
       </div>
@@ -94,7 +94,7 @@ const Signin = () => {
               textDecoration: "none",
               fontWeight: "bold",
             }}
-          >
+          > 
             Sign up
           </Link>
         </div>

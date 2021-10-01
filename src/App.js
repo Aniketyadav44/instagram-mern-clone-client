@@ -11,6 +11,8 @@ import SinglePost from "./Components/Screens/SinglePost";
 import EditPost from "./Components/Screens/EditPost";
 import EditUser from "./Components/Screens/EditUser";
 import { initialState, reducer } from "./Reducers/userReducer";
+import ResetPassword from "./Components/Screens/ResetPassword";
+import NewPassword from "./Components/Screens/NewPassword";
 
 export const UserContext = createContext();
 
@@ -22,7 +24,9 @@ const Routing = () => {
     if (user) {
       dispatch({ type: "USER", payload: user });
     } else {
-      history.push("/signin");
+      if (!history.location.pathname.startsWith("/reset")) {
+        history.push("/signin");
+      }
     }
   }, []);
   return (
@@ -50,6 +54,12 @@ const Routing = () => {
       </Route>
       <Route path="/edituser">
         <EditUser />
+      </Route>
+      <Route exact path="/reset">
+        <ResetPassword/>
+      </Route>
+      <Route path="/reset/:token">
+        <NewPassword/>
       </Route>
     </Switch>
   );

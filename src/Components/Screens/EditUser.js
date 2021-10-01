@@ -1,10 +1,17 @@
-import React, { useState, useContext} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styles from "./EditUser.module.css";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../../App";
 import loadingPhoto from "../../Assets/Spinner.gif";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Modal from "../Modal";
+
+import EmailIcon from "@mui/icons-material/Email";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const EditUser = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -15,7 +22,7 @@ const EditUser = () => {
   const [name, setName] = useState(state ? state.name : "");
   const [username, setUsername] = useState(state ? state.username : "");
   const [email, setEmail] = useState(state ? state.email : "");
-  const [bio, setBio] = useState("");
+  const [bio, setBio] = useState(state ? state.bio : "");
 
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -26,12 +33,30 @@ const EditUser = () => {
   const [editErr, setEditErr] = useState(false);
   const [editErrMsg, setEditErrMsg] = useState("");
 
+  const [vName, setVName] = useState("");
+  const [verifyErr, setVerifyErr] = useState(false);
+  const [verifyErrMsg, setVerifyErrMsg] = useState("");
+  const [reportText, setReportText] = useState("");
+
+  const [formLoading, setFormLoading] = useState(false);
+  const [sendVerify, setSendVerify] = useState(false);
+  const [sendMsg, setSendMsg] = useState(false);
+
   const history = useHistory();
   const token = localStorage.getItem("jwt");
 
   if (!token) {
     history.push("/signin");
   }
+
+  useEffect(() => {
+    if (sendMsg) {
+      sendReportMessageEmail();
+    }
+    if (sendVerify) {
+      sendVerificationEmail();
+    }
+  }, [sendVerify, sendMsg]);
 
   const selectImage = () => {
     document.getElementById("select-file").click();
@@ -171,6 +196,7 @@ const EditUser = () => {
         name: name,
         email: email,
         username: username,
+        bio: bio,
       }),
     })
       .then((res) => res.json())
@@ -189,6 +215,7 @@ const EditUser = () => {
             name: result.name,
             username: result.username,
             email: result.email,
+            bio: result.bio,
           })
         );
         toast.info("Profile updated!", {
@@ -230,8 +257,125 @@ const EditUser = () => {
       .catch((err) => console.log(err));
   };
 
+  const sendEmail = (to, subject, html, message) => {
+    setFormLoading(true);
+    fetch("/sendmail", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        to: to,
+        subject: subject,
+        html: html,
+      }),
+    })
+      .then((res) => res.json())
+      .then((results) => {
+        if (!results) {
+          toast.info("Some error occured!", {
+            position: toast.POSITION.BOTTOM_CENTER,
+            style: { backgroundColor: "#5A5B5C", color: "white" },
+            icon: false,
+            autoClose: 3000,
+            hideProgressBar: true,
+          });
+          setVName("");
+          setReportText("");
+          setFormLoading(false);
+        }
+        toast.info(message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+          style: { backgroundColor: "#5A5B5C", color: "white" },
+          icon: false,
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
+        setVName("");
+        setReportText("");
+        setFormLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const sendVerificationEmail = () => {
+    sendEmail(
+      "aniani4848@gmail.com",
+      "Verification request",
+      `<h2>I am ${vName}, my username is @${username} and my user id is ${
+        state ? state._id : localUser._id
+      }.</h2><p>This is a request mail to verify me.</p>`,
+      "Verification requested."
+    );
+    setSendVerify(false);
+  };
+
+  const sendReportMessageEmail = () => {
+    sendEmail(
+      "aniani4848@gmail.com",
+      "Report Message for Instagram clone",
+      `<h2>I am ${
+        state ? state.name : localUser.name
+      }, my username is @${username} and my user id is ${
+        state ? state._id : localUser._id
+      }.</h2><h4>This is a mail with message :</h4><p>"${reportText}".</p>`,
+      "Thanks for Reporting!"
+    );
+    setSendMsg(false);
+  };
+
+  const reset = () => {
+    setError(false);
+    setErrorMsg("");
+    setFormLoading(true);
+    fetch("/edit-password", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        oldPassword: password,
+        newPassword: newPassword,
+        userId: state ? state._id : localUser._id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.error) {
+          setFormLoading(false);
+          setErrorMsg(result.error);
+          setError(true);
+          setPassword("");
+          setNewPassword("");
+          setConfirmNewPassword("");
+          return;
+        }
+        setFormLoading(false);
+        setErrorMsg("");
+        setPassword("");
+        setNewPassword("");
+        setConfirmNewPassword("");
+        setError(false);
+        toast.info("Password changed!", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          style: { backgroundColor: "#5A5B5C", color: "white" },
+          icon: false,
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
+      {formLoading && (
+        <Modal type="popup" closeModal={setFormLoading}>
+          <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
+        </Modal>
+      )}
       <div className={styles.mainDiv}>
         <h3 className={styles.heading}>Edit Profile</h3>
         <div className={styles.rowDiv}>
@@ -385,8 +529,8 @@ const EditUser = () => {
               state &&
               name === state.name &&
               username === state.username &&
-              email === state.email
-              // && bio===state.bio
+              email === state.email &&
+              bio === state.bio
             ) {
               history.goBack();
               return;
@@ -398,12 +542,7 @@ const EditUser = () => {
         >
           Submit
         </button>
-        <hr
-          style={{
-            border: "1px solid rgb(206, 206, 206)",
-            backgroundColor: " rgb(206, 206, 206)",
-          }}
-        />
+        <hr className={styles.hrStyle} />
         <h3 className={styles.heading}>Change Password</h3>
         <div className={styles.formRowDiv}>
           <div style={{ marginLeft: "49px" }} className={styles.formRowLeftDiv}>
@@ -457,7 +596,7 @@ const EditUser = () => {
         )}
         <button
           className={styles.button}
-          style={{ marginTop: "20px",width:"130px" }}
+          style={{ marginTop: "20px", width: "130px" }}
           onClick={() => {
             if (newPassword.length < 8) {
               setErrorMsg(
@@ -469,13 +608,214 @@ const EditUser = () => {
               setErrorMsg("Please make sure both passwords match.");
               setError(true);
               setTimeout(() => setError(false), 3000);
+            } else {
+              reset();
             }
           }}
         >
           Change Password
         </button>
+        <Link className={styles.forgotPassText} to="/reset">
+          <p>
+            <strong>Forgot password?</strong>
+          </p>
+        </Link>
+        <hr className={styles.hrStyle} />
+        <h3 className={styles.heading}>Request Verification</h3>
+        <h4 style={{ marginTop: "10px" }} className={styles.heading}>
+          Apply for Instagram Verification
+        </h4>
+        <h5
+          style={{
+            marginTop: "10px",
+            color: "grey",
+            width: "300px",
+            alignSelf: "center",
+          }}
+          className={styles.heading}
+        >
+          Verified accounts have blue checkmarks next to their name to show that
+          Instagram has confirmed they're the real presence of the public
+          figures, celebrities and brands they represent
+        </h5>
+        <div className={styles.formRowDiv}>
+          <div
+            style={{ marginLeft: "101px" }}
+            className={styles.formRowLeftDiv}
+          >
+            <aside className={styles.formLeftAside}>
+              <p>Username</p>
+            </aside>
+          </div>
+          <div className={styles.formRowRightDiv}>
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              readOnly
+            />
+          </div>
+        </div>
+        <div className={styles.formRowDiv}>
+          <div
+            style={{ marginLeft: "101px" }}
+            className={styles.formRowLeftDiv}
+          >
+            <aside className={styles.formLeftAside}>
+              <p>Full name</p>
+            </aside>
+          </div>
+          <div className={styles.formRowRightDiv}>
+            <input
+              type="text"
+              placeholder="Full name"
+              value={vName}
+              onChange={(e) => setVName(e.target.value)}
+            />
+          </div>
+        </div>
+        {verifyErr && (
+          <div>
+            <p className={styles.error}>{verifyErrMsg}</p>
+          </div>
+        )}
+        <Link to="#" style={{ alignSelf: "center" }}>
+          <button
+            className={styles.button}
+            onClick={() => {
+              if (!username || !vName) {
+                setVerifyErrMsg("Fields cannot be empty.");
+                setVerifyErr(true);
+                setTimeout(() => setVerifyErr(false), 3000);
+                return;
+              } else {
+                setSendVerify(true);
+                return;
+              }
+            }}
+          >
+            Submit
+          </button>
+        </Link>
+        <h5
+          style={{
+            marginTop: "0px",
+            marginBottom: "20px",
+            color: "grey",
+            width: "300px",
+            alignSelf: "center",
+          }}
+          className={styles.heading}
+        >
+          Verifying users takes 6-7 business days, so please wait after sending
+          a request
+        </h5>
+        <hr className={styles.hrStyle} />
+        <h3 className={styles.heading}>Report an Issue</h3>
+        <h5
+          style={{
+            marginTop: "10px",
+            color: "grey",
+            width: "300px",
+            alignSelf: "center",
+          }}
+          className={styles.heading}
+        >
+          Please help us in improving Instagram. If you notice any bugs or
+          problems on this website or if you have any suggestions, please make
+          sure to let us know
+        </h5>
+        <div className={styles.formRowDiv}>
+          <div
+            style={{ marginLeft: "118px" }}
+            className={styles.formRowLeftDiv}
+          >
+            <aside className={styles.formLeftAside}>
+              <p>Message</p>
+            </aside>
+          </div>
+          <div className={styles.formRowRightDiv}>
+            <textarea
+              style={{ marginBottom: "0px" }}
+              type="text"
+              placeholder="Enter Issue/Bug/Message..."
+              rows="10"
+              value={reportText}
+              onChange={(e) => setReportText(e.target.value)}
+            />
+          </div>
+        </div>
+        <button
+          className={styles.button}
+          style={{
+            marginTop: "20px",
+            width: "100px",
+            backgroundColor: "#ed4956",
+          }}
+          onClick={() => {
+            setSendMsg(true);
+          }}
+        >
+          Report
+        </button>
+        <hr className={styles.hrStyle} />
+        <h3 className={styles.heading}>About</h3>
+        <h5
+          style={{
+            marginTop: "10px",
+            marginBottom: "20px",
+            color: "grey",
+            width: "230px",
+            alignSelf: "center",
+          }}
+          className={styles.heading}
+        >
+          This website is a project website solely created by Aniket Yadav in
+          the name of E-ASY Productions an e-Production house.
+        </h5>
+        <div className={styles.connectDiv}>
+          <a className={styles.iconStyle} href="mailto:aniani4848@gmail.com">
+            <EmailIcon />
+          </a>
+          <a
+            className={styles.iconStyle}
+            href="https://www.instagram.com/aniket.cp/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <InstagramIcon />
+          </a>
+          <a
+            className={styles.iconStyle}
+            href="https://www.linkedin.com/in/aniketyadav4848/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <LinkedInIcon />
+          </a>
+          <a
+            className={styles.iconStyle}
+            href="https://github.com/aniketyadav44"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <GitHubIcon />
+          </a>
+          <a
+            className={styles.iconStyle}
+            href="https://twitter.com/AniketY8888"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <TwitterIcon />
+          </a>
+        </div>
       </div>
+
       <ToastContainer />
+      <p className={styles.footerText}>
+        © 2021 Instagram clone from E-ASY Productions(Aniket)
+      </p>
     </div>
   );
 };

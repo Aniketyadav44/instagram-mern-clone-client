@@ -159,6 +159,14 @@ body {
   align-self: center;
 }
 
+.footerText {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  color: grey;
+}
+
 @media screen and (max-width: 650px) {
   .mainPostDiv {
     margin: 25px 10px 0px 10px;

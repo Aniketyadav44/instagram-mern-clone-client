@@ -307,26 +307,6 @@ const Home = () => {
     );
   };
 
-  const SmartText = ({ text, length = 100 }) => {
-    const [showLess, setShowLess] = React.useState(true);
-
-    if (text.length < length) {
-      return <p>{text}</p>;
-    }
-
-    return (
-      <div>
-        <p>{showLess ? `${text.slice(0, length)}...` : text}</p>
-        <p
-          style={{ color: "grey", fontWeight: "bold", cursor: "pointer" }}
-          onClick={() => setShowLess(!showLess)}
-        >
-          &nbsp; {showLess ? "More" : "Less"}
-        </p>
-      </div>
-    );
-  };
-
   return (
     <>
       {openMoreModal && (
@@ -500,7 +480,7 @@ const Home = () => {
               </p>
               <p style={{ whiteSpace: "pre-line" }}>
                 <strong>{item.owner.username}</strong>&nbsp;
-                <SmartText text={item.caption} />
+                {item.caption}
               </p>
               {item.comments.length > 2 && (
                 <p
@@ -572,6 +552,9 @@ const Home = () => {
         );
       })}
       <ToastContainer />
+      <p className={styles.footerText}>
+        © 2021 Instagram clone from E-ASY Productions(Aniket)
+      </p>
     </>
   );
 };

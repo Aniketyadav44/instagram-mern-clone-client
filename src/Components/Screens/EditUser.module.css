@@ -100,6 +100,12 @@ body {
   font-weight: bold;
   font-size: 14px;
   align-self: center;
+  cursor: pointer;
+}
+
+.hrStyle {
+  border: 1px solid rgb(206, 206, 206);
+  background-color: rgb(206, 206, 206);
 }
 
 .error {
@@ -110,6 +116,51 @@ body {
   margin-top: 15px;
   text-align: center;
   text-decoration: none;
+}
+
+.forgotPassText {
+  color: #0095f6;
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0px 40px 40px;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  background-color: white;
+}
+
+.footerText {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  color: grey;
+}
+
+.reportIssue {
+  width: 100%;
+  align-content: center;
+}
+
+.loadingGif {
+  width: 100px;
+  height: 100px;
+  background-color: transparent;
+  align-self: center;
+}
+
+.connectDiv{
+  display: flex;
+  align-self: center;
+  justify-content: space-around;
+  width: 40%;
+  margin: 10px 0 50px 0;
+}
+
+.iconStyle{
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
 }
 
 @media screen and (max-width: 750px) {
@@ -164,8 +215,12 @@ body {
     resize: vertical !important;
   }
 
-  .formRowRightDiv .error{
+  .formRowRightDiv .error {
     margin-top: -28px !important;
     margin-bottom: 10px !important;
+  }
+
+  .connectDiv{
+    width: 80%;
   }
 }

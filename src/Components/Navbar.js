@@ -70,6 +70,7 @@ const Navbar = () => {
               )}
               <div className={styles.profilePic}>
                 <img
+                style={{cursor:"pointer"}}
                   onClick={() => {
                     profileModal
                       ? setProfileModal(false)
@@ -87,21 +88,23 @@ const Navbar = () => {
         <>
           <div className={styles.profileModal}>
             <div>
-              <a
+              <Link
                 style={{ textDecoration: "none" }}
-                href={state ? `/profile/${state._id}` : "/signin"}
+                to={state ? `/profile/${state._id}` : "/signin"}
               >
                 <div className={styles.modalItem}>
                   <AccountCircleOutlinedIcon />
                   <p style={{ marginLeft: "5px" }}>Profile</p>
                 </div>
-              </a>
+              </Link>
             </div>
             <div>
-              <div className={styles.modalItem}>
-                <SettingsIcon />
-                <p style={{ marginLeft: "5px" }}>Settings</p>
-              </div>
+              <Link style={{ textDecoration: "none" }} to={"/edituser"}>
+                <div className={styles.modalItem}>
+                  <SettingsIcon />
+                  <p style={{ marginLeft: "5px" }}>Settings</p>
+                </div>
+              </Link>
             </div>
             <div style={{ borderTop: "2px solid #ccc" }} onClick={logOut}>
               <p className={styles.modalItem}>Log Out</p>

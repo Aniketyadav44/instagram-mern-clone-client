@@ -175,10 +175,7 @@ const Profile = () => {
         </Modal>
       )}
       {loading && (
-        <Modal
-        type="popup"
-          closeModal={setLoading}
-        >
+        <Modal type="popup" closeModal={setLoading}>
           <img src={loadingPhoto} alt="gif" className={styles.loadingGif} />
         </Modal>
       )}
@@ -272,7 +269,9 @@ const Profile = () => {
                     <p className={styles.name}>
                       <strong>{user.name}</strong>
                     </p>
-                    <p className={styles.bio}>This is the bio of the user</p>
+                    <p className={styles.bio}>
+                      {user.bio ? user.bio : "No bio, Edit bio now."}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -280,7 +279,9 @@ const Profile = () => {
                 <p className={styles.name}>
                   <strong>{user.name}</strong>
                 </p>
-                <p className={styles.bio}>This is the bio of the user</p>
+                <p className={styles.bio}>
+                  {user.bio ? user.bio : "No bio, Edit bio now."}
+                </p>
               </div>
               <hr className={styles.profileDivider} />
               <div className={styles.bigScreenGallery}>
