@@ -13,6 +13,34 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 
+const getTime = (date) => {
+  const today = new Date();
+  const createdDate = new Date(date);
+  const diffTime = Math.abs(today - createdDate);
+  const diffSecs = Math.ceil(diffTime / 1000);
+  const diffMins = Math.ceil(diffTime / (1000 * 60));
+  const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const diffMonth = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 30));
+  const diffYear = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 30 * 365));
+  var period;
+  console.log(today, createdDate, diffSecs, diffMins);
+  if (diffSecs < 60) {
+    period = diffSecs > 1 ? diffSecs + " secs ago" : diffSecs + " sec ago";
+  } else if (diffMins < 60) {
+    period = diffMins > 1 ? diffMins + " mins ago" : diffMins + " min ago";
+  } else if (diffHours < 24) {
+    period = diffHours > 1 ? diffHours + " hours ago" : diffHours + " hour ago";
+  } else if (diffDays < 30) {
+    period = diffDays > 1 ? diffDays + " days" : diffDays + " day";
+  } else if (diffMonth < 12) {
+    period = diffMonth > 1 ? diffMonth + " months" : diffMonth + " month";
+  } else {
+    period = diffYear > 1 ? diffYear + " years" : diffYear + " year";
+  }
+  return period;
+};
+
 const Home = () => {
   const { state, dispatch } = useContext(UserContext);
   const [data, setData] = useState([]);
@@ -524,7 +552,7 @@ const Home = () => {
                     );
                   })}
               <p style={{ color: "grey", marginTop: "10px", fontSize: "12px" }}>
-                {item.createdAt}
+                {getTime(item.createdAt)}
               </p>
             </div>
             <div className={styles.commentDiv}>

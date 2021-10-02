@@ -270,7 +270,7 @@ const Profile = () => {
                       <strong>{user.name}</strong>
                     </p>
                     <p className={styles.bio}>
-                      {user.bio ? user.bio : "No bio, Edit bio now."}
+                      {user.bio ? user.bio : ""}
                     </p>
                   </div>
                 </div>
@@ -280,7 +280,7 @@ const Profile = () => {
                   <strong>{user.name}</strong>
                 </p>
                 <p className={styles.bio}>
-                  {user.bio ? user.bio : "No bio, Edit bio now."}
+                  {user.bio ? user.bio : ""}
                 </p>
               </div>
               <hr className={styles.profileDivider} />

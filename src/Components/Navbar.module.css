@@ -35,7 +35,7 @@
   margin-bottom: 2px;
 }
 
-.profilePic img{
+.profilePic img {
   height: 100%;
   width: 100%;
   top: 0;
@@ -47,7 +47,7 @@
   height: 28px;
   background-color: white;
   color: black;
-  margin-right:10px;
+  margin-right: 10px;
 }
 
 .profilePicSelect {
@@ -56,7 +56,7 @@
   height: 26px;
   border: 1px solid black;
   position: absolute;
-  top: 9px;
+  top: 6px;
   right: 14.78%;
   background-color: transparent;
   cursor: pointer;
@@ -101,6 +101,106 @@
   z-index: 100 !important;
 }
 
+.searchBar {
+  max-width: 213px;
+  width: 30%;
+  height: 25px;
+  text-align: center;
+  border: 1px solid rgb(206, 206, 206);
+  border-radius: 5px;
+  background-color: #fafafa;
+  margin: 0 5px;
+}
+
+.searchBar:focus {
+  text-align: start;
+  outline: none;
+}
+
+.searchModal {
+  position: absolute;
+  top: 55px;
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  box-shadow: 0 0 3px #ccc;
+  border-radius: 6px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 99 !important;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 15px;
+}
+
+.searchModalTriangle {
+  width: 15px;
+  transform: rotate(45deg);
+  position: absolute;
+  height: 15px;
+  background-color: white;
+  top: 47px;
+  border: none;
+  box-shadow: 0 0 3px #ccc;
+  bottom: 0px;
+  clip-path: inset(-5px 0px 0px -5px);
+  mix-blend-mode: luminosity;
+  z-index: 100 !important;
+}
+
+.mainModalDiv {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-left: 15px;
+}
+
+.searchModalItem {
+  display: flex;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.searchModalItem:hover {
+  background-color: #fafafa;
+}
+
+.loadingGif {
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  margin-left: 125px;
+  margin-top: 120px;
+}
+
+.searchProfilePic {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgb(206, 206, 206);
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.notFound {
+  color: grey;
+  font-size: 13px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 130px;
+}
+
+.verifiedIcon {
+  width: 13px;
+  height: 13px;
+  align-self: center;
+  margin: 0px 5px;
+  float: left;
+  position: relative;
+}
+
 @media screen and (max-width: 980px) {
   .navbar {
     padding: 5px 20px;
@@ -108,6 +208,7 @@
 
   .profilePicSelect {
     right: 18px;
+    top: 9px;
   }
   .profileModal {
     right: 0px;

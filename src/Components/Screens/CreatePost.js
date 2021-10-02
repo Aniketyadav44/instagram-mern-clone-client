@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./CreatePost.module.css";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import loadingPhoto from "../../Assets/Spinner.gif";
-import { UserContext } from "../../App";
 import { useHistory } from "react-router-dom";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
@@ -13,7 +12,6 @@ import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
 const CreatePost = () => {
-  const { state, dispatch } = useContext(UserContext);
   const [src, setSrc] = useState(null);
   const [image, setImage] = useState(null);
   const [crop, setCrop] = useState({ aspect: 1 / 1 });
@@ -273,7 +271,9 @@ const CreatePost = () => {
           )}
         </div>
       </div>
-      <p className={styles.footerText}>© 2021 Instagram clone from E-ASY Productions(Aniket)</p>
+      <p className={styles.footerText}>
+        © 2021 Instagram clone from E-ASY Productions(Aniket)
+      </p>
     </div>
   );
 };

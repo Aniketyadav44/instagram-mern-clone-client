@@ -17,7 +17,7 @@ import NewPassword from "./Components/Screens/NewPassword";
 export const UserContext = createContext();
 
 const Routing = () => {
-  const { state, dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
   const history = useHistory();
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
